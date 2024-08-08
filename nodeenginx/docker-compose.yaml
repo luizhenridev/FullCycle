@@ -1,0 +1,54 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: ./
+      dockerfile: Dockerfile.node
+    networks: 
+      - nodenginx-network
+    tty: true
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+
+    
+  db:
+    image: mysql:8.0
+    container_name: db
+    restart: always
+    tty: true
+    environment:
+      - MYSQL_DATABASE=nodenginx
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - nodenginx-network
+    ports: 
+      - '3306:3306'
+    volumes:
+      - ./nodenginx:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+    
+  nginx:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
+    networks:
+      - nodenginx-network
+
+networks:
+  nodenginx-network:
+    driver: bridge
