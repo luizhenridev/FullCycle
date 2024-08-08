@@ -1,0 +1,38 @@
+# Desafio Go
+link - https://hub.docker.com/repository/docker/luizhenriquecavalcante/golang/general
+docker image - docker push luizhenriquecavalcante/golang:latest
+
+# Node & Nginx Docker Project
+
+Este projeto utiliza Docker para configurar e executar um ambiente de aplicação web com Node.js, MySQL e Nginx. A seguir, está uma visão geral dos componentes e instruções para começar a usar o projeto.
+
+## Componentes
+
+1. **Node.js Application**: Aplicação Node.js que se conecta a um banco de dados MySQL e serve conteúdo em uma API.
+2. **MySQL Database**: Banco de dados MySQL usado pela aplicação Node.js para armazenar dados.
+3. **Nginx**: Servidor web Nginx configurado como um proxy reverso para encaminhar solicitações para a aplicação Node.js.
+
+## Arquitetura
+
+A arquitetura do projeto é configurada usando `docker-compose` e inclui três serviços:
+
+- **app**: Contém a aplicação Node.js.
+- **db**: Contém o banco de dados MySQL.
+- **nginx**: Contém o servidor Nginx que atua como um proxy reverso.
+
+## Configuração
+
+### Estrutura de Diretórios
+
+- `Dockerfile.node`: Dockerfile para a aplicação Node.js.
+- `Dockerfile.nginx`: Dockerfile para o servidor Nginx.
+- `docker-compose.yml`: Arquivo de configuração do Docker Compose.
+- `default.conf`: Configuração do Nginx.
+
+### Dockerfile para a Aplicação Node.js
+
+O Dockerfile para a aplicação Node.js (`Dockerfile.node`) deve configurar a imagem Docker para o ambiente Node.js. Certifique-se de incluir as dependências e o código da aplicação.
+
+### Dockerfile para Nginx
+
+O Dockerfile para o Nginx (`Dockerfile.nginx`) deve configurar o Nginx para usar a configuração personalizada (`default.conf`).
